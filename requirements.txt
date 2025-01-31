@@ -1,10 +1,10 @@
-streamlit
-transformers
-Pillow
-sentence-transformers
+streamlit==1.29.0 # or any other version you want to install. The version of streamlit you are using locally.
+transformers==4.36.2 # or any other version you want to install. The version of transformers you are using locally.
+Pillow==10.0.1 # or any other version you want to install. The version of Pillow you are using locally.
+sentence-transformers==2.2.2 # or any other version you want to install. The version of sentence-transformers you are using locally.
 spacy==3.5.0
 https://github.com/explosion/spacy-models/releases/download/en_core_web_sm-3.5.0/en_core_web_sm-3.5.0-py3-none-any.whl
-torch  # PyTorch (may be needed depending on your setup)
 thinc==8.1.8
-beautifulsoup4
-requests
+torch==2.0.1+cpu torchvision==0.15.2+cpu torchaudio==2.0.2+cpu --index-url https://download.pytorch.org/whl/cpu
+beautifulsoup4==4.12.2 # or any other version you want to install. The version of beautifulsoup4 you are using locally.
+requests==2.31.0 # or any other version you want to install. The version of requests you are using locally.
