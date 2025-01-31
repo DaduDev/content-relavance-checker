@@ -3,28 +3,13 @@ from transformers import pipeline
 from PIL import Image  # For image handling
 import io  # For video handling (more on this later)
 from sentence_transformers import SentenceTransformer, util
-import spacy  # For NLP processing
 import torch  # For tensor operations
 
 
 # ... (Classifier initialization and classify_post function remain the same)
 classifier = pipeline("zero-shot-classification", model="facebook/bart-large-mnli")  # Or a similar model
 sentence_model = SentenceTransformer('all-mpnet-base-v2')
-nlp = spacy.load("en_core_web_lg")
-def process_description(description):
-    doc = nlp(description)
 
-    # 1. Lemmatization: Get the base form of words
-    lemmatized_description = " ".join([token.lemma_ for token in doc])
-
-    # 2. Stop Word Removal (Optional, but often helpful):
-    stop_words = spacy.lang.en.stop_words.STOP_WORDS
-    filtered_description = " ".join([token.text for token in doc if not token.is_stop])
-
-    # 3. Combining (You can experiment with different combinations)
-    processed_description = lemmatized_description # Or filtered_description, or both
-
-    return processed_description
 
 def classify_post(post_text, description):
     keywords = description.lower().split()  # Extract keywords
@@ -47,9 +32,6 @@ def main():
 
     uploaded_file = st.file_uploader("Upload text, image, or video", type=["txt", "jpg", "png", "mp4", "mov"])  # Allow multiple file types
     description = st.text_area("Enter a description/topic:")
-    processed_description = process_description(description)  # Process the description!
-    description_embedding = sentence_model.encode(processed_description)  # Use processed description
-
 
     if st.button("Check Relevance"):
         if not uploaded_file or not description:
