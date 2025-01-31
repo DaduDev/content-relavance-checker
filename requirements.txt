@@ -2,8 +2,8 @@ streamlit
 transformers
 Pillow
 sentence-transformers
-spacy>=3.0.0,<4.0.0 https://github.com/explosion/spacy-models/releases/download/en_core_web_sm-3.0.0/en_core_web_sm-3.0.0.tar.gz#egg=en_core_web_sm Try replacing spacy==3.0.6
-en-core-web-sm
+spacy==3.5.0
+https://github.com/explosion/spacy-models/releases/download/en_core_web_sm-3.5.0/en_core_web_sm-3.5.0-py3-none-any.whl
 torch  # PyTorch (may be needed depending on your setup)
 beautifulsoup4
 requests
