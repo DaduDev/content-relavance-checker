@@ -112,8 +112,9 @@ Contributions are welcome! Please open an issue or submit a pull request if you 
 
 ## License
 
-[Choose a license (e.g., MIT License)](https://opensource.org/licenses/MIT)
+MIT License
 
 ## Contact
 
-[Your Name/Email Address]
+Shaik Dadapeer
+shaikdadapeer4488@gmail.com
