@@ -1,6 +1,6 @@
 # Content Relevance Checker
 
-This Streamlit application allows users to check the relevance of uploaded content (text, images, or videos) to a user-provided description.  It leverages the power of Natural Language Processing (NLP) and deep learning models to assess the semantic similarity between the content and the description.
+This Streamlit application allows users to check the relevance of uploaded content (text, images, or videos) to a user-provided description. It leverages deep learning models to assess the semantic similarity between the content and the description.  *(Note: NLP preprocessing with spaCy has been removed from this version.)*
 
 ## Table of Contents
 
@@ -21,13 +21,12 @@ This Streamlit application allows users to check the relevance of uploaded conte
 
 ## Introduction
 
-In today's information-saturated world, quickly determining the relevance of content is a critical task. This application simplifies this process by using advanced NLP techniques to understand the meaning of both the uploaded content and the user's description.  It then calculates the semantic similarity between them to provide a relevance assessment.
+In today's information-saturated world, quickly determining the relevance of content is a critical task. This application simplifies this process by using advanced techniques to understand the meaning of both the uploaded content and the user's description. It then calculates the semantic similarity between them to provide a relevance assessment.
 
 ## Features
 
 *   **Multi-Content Support:** Handles text, image, and (partially implemented) video uploads.
 *   **Semantic Similarity:** Employs sentence transformer models to go beyond simple keyword matching and understand the *meaning* of the content and description.
-*   **NLP Preprocessing:** Uses spaCy for lemmatization and stop word removal to improve the accuracy of the semantic comparison.
 *   **Clear Output:** Provides a relevance assessment (relevant/irrelevant) along with a confidence score indicating the model's certainty.
 *   **Easy-to-Use Interface:** Built with Streamlit for a simple and intuitive user experience.
 
@@ -42,29 +41,25 @@ The application follows these steps:
     *   **Image:** The uploaded image is classified using an image classification model. The top predicted labels are then used for semantic comparison.
     *   **Video:** (Currently a placeholder) The video is displayed, but video analysis is not yet implemented.
 
-3.  **NLP Processing (Description):** The user-provided description is processed using spaCy. This includes:
-    *   **Lemmatization:** Converting words to their base form (e.g., "running" to "run").
-    *   **Stop Word Removal:** Removing common words (e.g., "the," "a," "is") that don't contribute much to the meaning.
+3.  **Semantic Similarity Calculation:** Sentence transformer models are used to create embeddings (vector representations) of the description and the content (or image labels). The cosine similarity between these embeddings is calculated to determine how semantically related they are.
 
-4.  **Semantic Similarity Calculation:**  Sentence transformer models are used to create embeddings (vector representations) of the processed description and the content (or image labels).  The cosine similarity between these embeddings is calculated to determine how semantically related they are.
-
-5.  **Relevance Assessment:** Based on the similarity score and a predefined threshold, the application determines if the content is relevant to the description.  A confidence score (equal to the similarity) is also provided.
+4.  **Relevance Assessment:** Based on the similarity score and a predefined threshold, the application determines if the content is relevant to the description. A confidence score (equal to the similarity) is also provided.
 
 ### Text Content
 
-For text uploads, the text is directly processed (lemmatized and stop words removed) and then compared to the processed description.
+For text uploads, the text is directly used and then compared to the description.
 
 ### Image Content
 
-For image uploads, the image is first classified using an image classification model.  The top predicted labels from the image classifier are then used in the semantic similarity calculation against the processed description.  This approach allows for assessing the relevance of an image based on its content.
+For image uploads, the image is first classified using an image classification model. The top predicted labels from the image classifier are then used in the semantic similarity calculation against the description. This approach allows for assessing the relevance of an image based on its content.
 
 ### Video Content (Placeholder)
 
-Currently, video uploads are only displayed.  Full video analysis (frame extraction, image classification of frames, and combining results) is planned for future development.
+Currently, video uploads are only displayed. Full video analysis (frame extraction, image classification of frames, and combining results) is planned for future development.
 
 ## Installation
 
-1.  **Clone the repository (if applicable):**  If you're working with a Git repository, clone it to your local machine.
+1.  **Clone the repository (if applicable):** If you're working with a Git repository, clone it to your local machine.
 
 2.  **Create a virtual environment (recommended):**
     ```bash
@@ -78,11 +73,6 @@ Currently, video uploads are only displayed.  Full video analysis (frame extract
     pip install -r requirements.txt
     ```
 
-4.  **Download spaCy model:**
-    ```bash
-    python -m spacy download en_core_web_lg
-    ```
-
 ## Usage
 
 1.  **Run the Streamlit app:**
@@ -92,21 +82,21 @@ Currently, video uploads are only displayed.  Full video analysis (frame extract
 
 2.  **Open the app in your browser:** Streamlit will provide you with a URL to access the app (usually `http://localhost:8501`).
 
-3.  **Upload content and provide a description:** Use the file uploader to select your text, image, or video file.  Enter a description in the text area.
+3.  **Upload content and provide a description:** Use the file uploader to select your text, image, or video file. Enter a description in the text area.
 
-4.  **Check relevance:** Click the "Check Relevance" button.  The app will display the relevance assessment and confidence score.
+4.  **Check relevance:** Click the "Check Relevance" button. The app will display the relevance assessment and confidence score.
 
 ## Model Selection
 
-*   **Image Classification:** The application uses `google/vit-base-patch16-224` as the default image classification model.  You can change this in the code to any other model available on the Hugging Face Model Hub.  Vision Transformer (ViT) models are generally recommended for image classification tasks.
+*   **Image Classification:** The application uses `google/vit-base-patch16-224` as the default image classification model. You can change this in the code to any other model available on the Hugging Face Model Hub. Vision Transformer (ViT) models are generally recommended for image classification tasks.
 
-*   **Sentence Transformer:** The application uses `all-mpnet-base-v2` as the default sentence transformer model.  You can experiment with other models from the `sentence-transformers` library, such as `all-MiniLM-L6-v2` (for faster processing) or `multi-qa-mpnet-base-dot-v1` (for question-answering like scenarios).
+*   **Sentence Transformer:** The application uses `all-mpnet-base-v2` as the default sentence transformer model. You can experiment with other models from the `sentence-transformers` library, such as `all-MiniLM-L6-v2` (for faster processing) or `multi-qa-mpnet-base-dot-v1` (for question-answering-like scenarios).
 
 ## Limitations
 
-*   **Video Analysis:**  Video analysis is not yet fully implemented.
-*   **Image Classification Accuracy:** The accuracy of the image classification depends on the chosen model and the quality of the uploaded image.  Complex or unusual images might not be classified correctly.
-*   **Semantic Similarity:** Semantic similarity is a complex problem.  While the chosen models are effective, they might not always perfectly capture the nuances of human language.
+*   **Video Analysis:** Video analysis is not yet fully implemented.
+*   **Image Classification Accuracy:** The accuracy of the image classification depends on the chosen model and the quality of the uploaded image. Complex or unusual images might not be classified correctly.
+*   **Semantic Similarity:** Semantic similarity is a complex problem. While the chosen models are effective, they might not always perfectly capture the nuances of human language.
 *   **Computational Resources:** Running large language models can require significant computational resources (especially RAM and GPU).
 
 ## Future Enhancements
@@ -118,13 +108,12 @@ Currently, video uploads are only displayed.  Full video analysis (frame extract
 
 ## Contributing
 
-Contributions are welcome!  Please open an issue or submit a pull request if you have any suggestions or improvements.
+Contributions are welcome! Please open an issue or submit a pull request if you have any suggestions or improvements.
 
 ## License
 
-MIT License
+[Choose a license (e.g., MIT License)](https://opensource.org/licenses/MIT)
 
 ## Contact
 
-Shaik Dadapeer
-shaikdadapeer4488@gmail.com
+[Your Name/Email Address]
